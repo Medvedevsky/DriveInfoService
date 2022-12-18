@@ -1,7 +1,6 @@
 ﻿using FullDriveNotificationService.Layers;
 using FullDriveNotificationService.Models;
 
-
 class Program
 {
     static void Main()
