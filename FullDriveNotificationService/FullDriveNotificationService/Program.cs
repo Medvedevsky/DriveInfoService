@@ -1,5 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using testApp;
+using FullDriveNotificationService;
 
 Kernel32.GetDiskFreeSpaceEx("C:\\", out ulong lpFreeBytesAvailable,
                                     out ulong lpTotalNumberOfBytes,
