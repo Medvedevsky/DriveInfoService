@@ -3,7 +3,7 @@
 
 namespace FullDriveNotificationService
 {
-    public static class Kernel32
+    internal static class Kernel32
     {
         [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         [return: MarshalAs(UnmanagedType.Bool)]

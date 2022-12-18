@@ -1,14 +1,22 @@
-﻿// See https://aka.ms/new-console-template for more information
-using FullDriveNotificationService;
+﻿using FullDriveNotificationService.Layers;
+using FullDriveNotificationService.Models;
 
-Kernel32.GetDiskFreeSpaceEx("C:\\", out ulong lpFreeBytesAvailable,
-                                    out ulong lpTotalNumberOfBytes,
-                                    out ulong lpTotalNumberOfFreeBytes);
 
-var avalivaleGb = lpFreeBytesAvailable / 1073741824;
-var totalNumberGb = lpTotalNumberOfBytes / 1073741824;
-var totalNumberOfFreeBytes = lpTotalNumberOfFreeBytes / 1073741824;
+class Program
+{
+    static void Main()
+    {
+        string[] paths = new string[] { "C:\\" };
+        double minPrecent = 50;
 
-Console.WriteLine($"Доступно: {avalivaleGb}");
-Console.WriteLine($"Всего: {totalNumberGb}");
+        LogicService logicService = new();
+
+        List<FullDriveModel> fullDrivers = logicService.SearchFullDrivers(paths, minPrecent);
+        (string subject, string message) = logicService.CreateSummaryMessage(fullDrivers);
+
+        Console.WriteLine(subject);
+        Console.WriteLine(message);
+    }
+}
+
 
