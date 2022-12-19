@@ -7,14 +7,14 @@ namespace FullDriveNotificationService.Layers
 {
     public class LogicService
     {
-        public (string subject, string message) CreateSummaryMessage(List<FullDriveModel> drivers)
+        public (string subject, string message) CreateSummaryMessage(List<FullDriveModel> drives)
         {
             StringBuilder builder = new StringBuilder();
             string subject = "Проблема";
 
             builder.AppendLine("Заканчивается свободное место");
 
-            foreach (var fullDrive in drivers)
+            foreach (var fullDrive in drives)
             {
                 builder.AppendLine($"Расположение {fullDrive.DriveName} - {fullDrive.AvailableFreeSpaceGb} ГБ " +
                     $"из {fullDrive.TotalSizeSpaceGb} ГБ ({fullDrive.Percent} %)");
@@ -24,11 +24,11 @@ namespace FullDriveNotificationService.Layers
 
         }
 
-        public List<FullDriveModel> SearchFullDrivers(string[] paths, double minPrecent)
+        public List<FullDriveModel> SearchFullDrives(string[] paths, double minPrecent)
         {
 
             if (paths is null) return null!;
-            List<FullDriveModel> fullDrivers = new List<FullDriveModel>();
+            List<FullDriveModel> fullDrives = new List<FullDriveModel>();
 
             foreach (var path in paths)
             {
@@ -49,7 +49,7 @@ namespace FullDriveNotificationService.Layers
 
                 if (minPrecent >= precent)
                 {
-                    fullDrivers.Add(
+                    fullDrives.Add(
                         new FullDriveModel(
                             path,
                             availableFreeSpaceGb,
@@ -58,7 +58,7 @@ namespace FullDriveNotificationService.Layers
                 }
             }
 
-            return fullDrivers;
+            return fullDrives;
         }
 
         public double ConvertByteToGigabyte(ulong value)

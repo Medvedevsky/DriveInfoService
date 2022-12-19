@@ -5,13 +5,13 @@ class Program
 {
     static void Main()
     {
-        string[] paths = new string[] { "C:\\" };
+        string[] paths = new string[] { "C:\\", "D:\\" };
         double minPrecent = 50;
 
         LogicService logicService = new();
 
-        List<FullDriveModel> fullDrivers = logicService.SearchFullDrivers(paths, minPrecent);
-        (string subject, string message) = logicService.CreateSummaryMessage(fullDrivers);
+        List<FullDriveModel> fullDrives = logicService.SearchFullDrives(paths, minPrecent);
+        (string subject, string message) = logicService.CreateSummaryMessage(fullDrives);
 
         Console.WriteLine(subject);
         Console.WriteLine(message);
