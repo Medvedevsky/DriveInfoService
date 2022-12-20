@@ -1,13 +1,13 @@
 ﻿using FullDriveNotificationService.Logic;
 using FullDriveNotificationService.Models;
-using System.ComponentModel;
-using System.Runtime.InteropServices;
+using NLog;
 using System.Text;
 
 namespace FullDriveNotificationService.Layers
 {
     public class FullDriveNotification
     {
+        private Logger logger = LogManager.GetCurrentClassLogger();
         public (string subject, string message) CreateSummaryMessage(List<FullDriveModel> drives)
         {
             StringBuilder builder = new StringBuilder();
@@ -27,8 +27,13 @@ namespace FullDriveNotificationService.Layers
 
         public List<FullDriveModel> SearchFullDrives(string[] paths, double minPrecent)
         {
+            logger.Info("Запустилась проверка свободного места на дисках");
 
-            if (paths is null) return null!;
+            if (paths is null)
+            {
+                logger.Error("Произошла ошибка. Путь к диску не указан!");
+                return null!;
+            }
             List<FullDriveModel> fullDrives = new List<FullDriveModel>();
 
             foreach (var path in paths)
@@ -40,8 +45,8 @@ namespace FullDriveNotificationService.Layers
 
                 if (!success)
                 {
-                    Console.WriteLine("Не удалось получить информацию о диске");
-                    throw new Win32Exception(Marshal.GetLastWin32Error());
+                    logger.Error("Произошла ошибка. Не удалось получить информацию о диске");
+                    return null!;
                 }
 
                 double availableFreeSpaceGb = ConvertByteToGigabyte(availableFreeSpace);
@@ -70,6 +75,7 @@ namespace FullDriveNotificationService.Layers
                 return Convert.ToDouble(string.Format("{0:F2}", (double)availableFreeSpaceGb * 100 / totalSizeGb));
             }
 
+            logger.Info("Завершилась проверка свободного места на дисках");
             return fullDrives;
         }
     }

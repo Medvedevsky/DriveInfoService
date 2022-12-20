@@ -15,20 +15,23 @@ class Program
         List<FullDriveModel> fullDrives = logicService.SearchFullDrives(paths, minPrecent);
         (string subject, string message) = logicService.CreateSummaryMessage(fullDrives);
 
-        SendingSettings settings = new SendingSettings();
-        settings.Subject = subject;
-        settings.Message = message;
-        settings.SenderHost = "smtp.mailtrap.io";
-        settings.SenderPort = 2525;
-        settings.UserName = "7320d25e4ed208";
-        settings.Password = "9e307a2f723aa1";
-        settings.SenderEmail = "MailService@gmail.com";
-        settings.Sender = "TestMailService";
+        SendingSettings settings = new SendingSettings
+        {
+           Subject = subject,
+           Message = message,
+           SenderHost = "smtp.mailtrap.io",
+           SenderPort = 2525,
+           UserName = "7320d25e4ed208",
+           Password = "9e307a2f723aa1",
+           SenderEmail = "MailService@gmail.com",
+           Sender = "TestMailService",
+        };
 
         string recepientEmail = "killumexxx@gmail.com";
 
         await SendService.SendEmailAsync(settings, recepientEmail);
 
+        Console.WriteLine();
         Console.WriteLine(subject);
         Console.WriteLine(message);
     }

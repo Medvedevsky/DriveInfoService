@@ -1,11 +1,14 @@
 ﻿using MailKit.Net.Smtp;
 using MailService.Models;
 using MimeKit;
+using NLog;
 
 namespace MailService.Infrastructure
 {
     public static class SendService
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public static async Task<bool> SendEmailAsync(SendingSettings settings, string recipientEmail)
         {
             using SmtpClient client = new();
@@ -15,6 +18,7 @@ namespace MailService.Infrastructure
 
             try
             {
+                logger.Info($"Отправка сообщения");
                 MimeMessage emailMessage = new();
                 emailMessage.From.Add(new MailboxAddress(settings.Sender, settings.SenderEmail));
                 emailMessage.To.Add(MailboxAddress.Parse(recipientEmail));
@@ -29,14 +33,13 @@ namespace MailService.Infrastructure
 
                 emailMessage.Body = builder.ToMessageBody();
 
-
                 await client.SendAsync(emailMessage);
 
-                //logger.Trace($"Сообщение отправлено, получатель '{count}' '{email}' из '{emailCount}'");
+                logger.Info($"Сообщение отправлено, получатель '{recipientEmail}'");
             }
             catch (Exception ex)
             {
-                //logger.Error($"Произошла ошибка при отправке сообщения: {ex}");
+                logger.Error($"Произошла ошибка при отправке сообщения: {ex}");
                 return false;
             }
 
