@@ -1,7 +1,7 @@
 ﻿using FullDriveNotificationService.Layers;
 using FullDriveNotificationService.Models;
-using MailService.Models;
 using MailService.Infrastructure;
+using MailService.Models;
 
 class Program
 {
@@ -10,7 +10,7 @@ class Program
         string[] paths = new string[] { "C:\\", "D:\\" };
         double minPrecent = 50;
 
-        LogicService logicService = new();
+        FullDriveNotification logicService = new();
 
         List<FullDriveModel> fullDrives = logicService.SearchFullDrives(paths, minPrecent);
         (string subject, string message) = logicService.CreateSummaryMessage(fullDrives);

@@ -1,11 +1,12 @@
-﻿using FullDriveNotificationService.Models;
+﻿using FullDriveNotificationService.Logic;
+using FullDriveNotificationService.Models;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Text;
 
 namespace FullDriveNotificationService.Layers
 {
-    public class LogicService
+    public class FullDriveNotification
     {
         public (string subject, string message) CreateSummaryMessage(List<FullDriveModel> drives)
         {
@@ -58,18 +59,18 @@ namespace FullDriveNotificationService.Layers
                 }
             }
 
+            double ConvertByteToGigabyte(ulong value)
+            {
+                //gigabyte = 1073741824;
+                return value / 1073741824;
+            }
+
+            double GetPercent(double totalSizeGb, double availableFreeSpaceGb)
+            {
+                return Convert.ToDouble(string.Format("{0:F2}", (double)availableFreeSpaceGb * 100 / totalSizeGb));
+            }
+
             return fullDrives;
-        }
-
-        public double ConvertByteToGigabyte(ulong value)
-        {
-            //gigabyte = 1073741824;
-            return value / 1073741824;
-        }
-
-        public double GetPercent(double totalSizeGb, double availableFreeSpaceGb)
-        {
-            return Convert.ToDouble(string.Format("{0:F2}", (double)availableFreeSpaceGb * 100 / totalSizeGb));
         }
     }
 }

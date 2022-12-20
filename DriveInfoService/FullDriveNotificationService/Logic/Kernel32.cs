@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace FullDriveNotificationService
+namespace FullDriveNotificationService.Logic
 {
     internal static class Kernel32
     {
