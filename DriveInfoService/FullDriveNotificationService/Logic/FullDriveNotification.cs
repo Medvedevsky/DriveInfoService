@@ -8,22 +8,6 @@ namespace FullDriveNotificationService.Layers
     public static class FullDriveNotification
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
-        public static (string subject, string message) CreateSummaryMessage(List<FullDriveModel> drives)
-        {
-            StringBuilder builder = new StringBuilder();
-            string subject = "Проблема";
-
-            builder.AppendLine("Заканчивается свободное место");
-
-            foreach (var fullDrive in drives)
-            {
-                builder.AppendLine($"Расположение {fullDrive.DriveName} - {fullDrive.AvailableFreeSpaceGb} ГБ " +
-                    $"из {fullDrive.TotalSizeSpaceGb} ГБ ({fullDrive.Percent} %)");
-            }
-
-            return (subject, builder.ToString());
-
-        }
         public static List<FullDriveModel> SearchFullDrives(string[] paths, double minPrecent)
         {
             logger.Info("Запустилась проверка свободного места на дисках");
@@ -76,6 +60,27 @@ namespace FullDriveNotificationService.Layers
 
             logger.Info("Завершилась проверка свободного места на дисках");
             return fullDrives;
+        }
+        public static (string subject, string message) CreateSummaryMessage(List<FullDriveModel> drives)
+        {
+            StringBuilder builder = new StringBuilder();
+            //string subject = "Проблема";
+            string subject = "Problem";
+
+            //builder.AppendLine("Заканчивается свободное место");
+            builder.AppendLine("Free memory is running out");
+
+            foreach (var fullDrive in drives)
+            {
+                //builder.AppendLine($"Расположение {fullDrive.DriveName} - {fullDrive.AvailableFreeSpaceGb} ГБ " +
+                //    $"из {fullDrive.TotalSizeSpaceGb} ГБ ({fullDrive.Percent} %)");
+
+                builder.AppendLine($"Location {fullDrive.DriveName} - {fullDrive.AvailableFreeSpaceGb} GB " +
+                      $"out of {fullDrive.TotalSizeSpaceGb} GB ({fullDrive.Percent} %)");
+            }
+
+            return (subject, builder.ToString());
+
         }
     }
 }

@@ -7,8 +7,9 @@ class Program
 {
     static async Task Main()
     {
+        // can UNC paths also, example \\Server1\c$\
         string[] paths = new string[] { "D:\\", "C:\\" };
-        double minPrecent = 50;
+        double minPrecent = 100;
 
         List<FullDriveModel> fullDrives = FullDriveNotification.SearchFullDrives(paths, minPrecent);
         (string subject, string message) = FullDriveNotification.CreateSummaryMessage(fullDrives);
