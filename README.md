@@ -53,7 +53,7 @@ class Program
 
 ### Example result on email
 
-<img src=https://github.com/Medvedevsky/DriveInfoService/blob/draft-dll-branch/DriveInfoService/Example/Images/ExampleResult.png>
+<img src=https://github.com/Medvedevsky/DriveInfoService/blob/draft-dll-branch/DriveInfoService/Example/Images/ExampleResultMin.png>
 
 
 
