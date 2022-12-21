@@ -5,10 +5,10 @@ using System.Text;
 
 namespace FullDriveNotificationService.Layers
 {
-    public class FullDriveNotification
+    public static class FullDriveNotification
     {
-        private Logger logger = LogManager.GetCurrentClassLogger();
-        public (string subject, string message) CreateSummaryMessage(List<FullDriveModel> drives)
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+        public static (string subject, string message) CreateSummaryMessage(List<FullDriveModel> drives)
         {
             StringBuilder builder = new StringBuilder();
             string subject = "Проблема";
@@ -24,8 +24,7 @@ namespace FullDriveNotificationService.Layers
             return (subject, builder.ToString());
 
         }
-
-        public List<FullDriveModel> SearchFullDrives(string[] paths, double minPrecent)
+        public static List<FullDriveModel> SearchFullDrives(string[] paths, double minPrecent)
         {
             logger.Info("Запустилась проверка свободного места на дисках");
 

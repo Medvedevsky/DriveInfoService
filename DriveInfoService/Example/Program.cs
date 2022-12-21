@@ -7,13 +7,11 @@ class Program
 {
     static async Task Main()
     {
-        string[] paths = new string[] { "C:\\", "D:\\" };
+        string[] paths = new string[] { "D:\\", "C:\\" };
         double minPrecent = 50;
 
-        FullDriveNotification logicService = new();
-
-        List<FullDriveModel> fullDrives = logicService.SearchFullDrives(paths, minPrecent);
-        (string subject, string message) = logicService.CreateSummaryMessage(fullDrives);
+        List<FullDriveModel> fullDrives = FullDriveNotification.SearchFullDrives(paths, minPrecent);
+        (string subject, string message) = FullDriveNotification.CreateSummaryMessage(fullDrives);
 
         SendingSettings settings = new SendingSettings
         {
@@ -27,13 +25,9 @@ class Program
            Sender = "TestMailService",
         };
 
-        string recepientEmail = "killumexxx@gmail.com";
+        string recepientEmail = "recepientEmail@gmail.com";
 
         await SendService.SendEmailAsync(settings, recepientEmail);
-
-        Console.WriteLine();
-        Console.WriteLine(subject);
-        Console.WriteLine(message);
     }
 }
 
