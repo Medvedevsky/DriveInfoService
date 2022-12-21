@@ -28,7 +28,7 @@ namespace FullDriveNotificationService.Layers
 
                 if (!success)
                 {
-                    logger.Error("Произошла ошибка. Не удалось получить информацию о диске");
+                    logger.Error($"Произошла ошибка. Не удалось получить информацию о диске {path}");
                     return null!;
                 }
 
